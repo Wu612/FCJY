@@ -1,0 +1,27 @@
+
+<ion-view view-title="" hide-tabs="true" hide-nav-bar="true" class="lunboslide">
+
+  <style>
+    .lunboslide .slider,.slider-slides .lunbobox{width:100%;
+      height:100%;
+    }
+  </style>
+
+  <ion-slide-box auto-play="false" does-continue="false" show-pager="true">
+    <ion-slide>
+      <div class="lunbobox" style="background:url(img/login_bg.png) no-repeat; background-size:100% 100%; "></div>
+    </ion-slide>
+    <ion-slide>
+      <div class="lunbobox" style="background:url(img/s2.jpg) no-repeat; background-size:100% 100%; "></div>
+    </ion-slide>
+    <ion-slide>
+      <div class="lunbobox" style="background:url(img/register_bg.jpg) no-repeat; background-size:100% 100%; ">
+        <div style="height:10rem;"></div>
+        <div class="row">
+          <div class="col" style="text-align:center;"><button class="button button-light" ng-click="toIndex()">进入主页</button></div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+
+</ion-view>

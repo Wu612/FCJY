@@ -1,0 +1,49 @@
+
+<style type="text/css">
+	
+	.ion-myself{
+		background: url(../img/ionic.png) no-repeat center top;
+	}
+	.ion-hhh{
+		background: url(../img/person_touxiang.png) no-repeat center top;
+	}
+	ion-tab{
+		color: red;
+	}
+	.ion-ios-home{
+		color: red;
+	}
+	/*改变图标颜色*/
+
+	
+	.ion-myself{
+			background: url(img/ionic.png) no-repeat center top;
+			background-size:0.6rem  0.8rem;
+			
+	}
+</style>
+<ion-tabs class="tabs-icon-top" >
+
+  <!-- 主页-->
+  <ion-tab title="首页" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/home" > 
+    <ion-nav-view name="tab-home"></ion-nav-view>
+  </ion-tab>
+  
+
+  <!--课程列表 -->
+  <ion-tab title="课程列表" icon-off="ion-ios-list-outline" icon-on="ion-myself" href="#/tab/lessonlist">
+    <ion-nav-view name="tab-lessonlist"></ion-nav-view>
+  </ion-tab>
+
+  <!-- 我的课程 -->
+  <ion-tab title="我的课程" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar" href="#/tab/mycourse">
+    <ion-nav-view name="tab-mycourse"></ion-nav-view>
+  </ion-tab>
+
+ <!-- 个人中心 -->
+  <ion-tab title="个人中心" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/personal">
+    <ion-nav-view name="tab-personal"></ion-nav-view>
+  </ion-tab>
+  
+
+</ion-tabs>

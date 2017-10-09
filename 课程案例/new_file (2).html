@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+
+    </body>
+    <script type="text/javascript" charset="utf-8">
+        var z = 10;//如果没有此项，将输出Uncaught ReferenceError: z is not defined
+        function foo(){
+                console.log(z);
+        }
+        (function(funArg){
+                var z = 20;
+                funArg();
+        })(foo);
+// 由于ECMAScript只使用静态作用域 
+//静态作用域是指声明的作用域是根据程序正文在编译时就确定的，有时也称为词法作用域。 
+//而在采用动态作用域的语言中，程序中某个变量所引用的对象是在程序运行时刻根据程序的控制流信息来确定的。 
+//所以根据函数创建的算法，我们看到 在ECMAScript中，所有的函数都是闭包，因为它们（这里是foo）都是在创建的时候就保存了上层上下文的作用域链（除开异常的情况） （不管这个函数后续是否会激活 —— [[Scope]]在函数创建的时候就有了） 
+//此处由于foo在创建时就将z=10保存在了其静态作用域中，所以在调用时输出10。  
+//作用域：
+//所谓的作用域就是指某段程序文本代码。一个声明起作用的那一段程序文本区域，则称为这个声明的作用域。
+
+// -------------------------------------     
+           var data=[];
+		    for (var k = 0; k < 3; k++) {
+		        data[k]=function () {
+		            console.log(k)
+		        }
+		    }
+		    data[0]()
+		    data[1]()
+		    data[2]()
+//这道题本来是想对每个数组里的元素保存一个函数，这个函数返回的是其下标值。 
+//结果返回的却是3 
+//原因就是匿名函数里的k啊，是引用而不是按值传递！ 
+//还有一个问题，很多人都觉得k应该是局部变量，其实不然，
+//for在js里不算是一个局部作用域。所以里面的变量其实都是在函数全局变量。
+		    
+		    var data = [];
+			for(var k = 0; k < 3; k++){
+			    data[k] = (function(num){
+			        return function() {
+			            console.log(num);
+			        }			        			        
+			    })(k);
+			}
+			data[0]();
+			data[1]();
+			data[2]();
+			
+//	-----------------------------------	 
+//			var a = 100;
+//		    function testResult(){
+//		    		console.log(a);
+//		            var b = 2 * a;
+//		            var a = 200;
+//		            var c = a / 2;
+//		            alert(b);
+//		            alert(c);
+//		            console.log(a)
+//		    }
+//		    testResult();
+
+
+//-------------------------------
+//		(function(){
+//          var a = b = 3;           
+////          b=3;
+////			var a=b;
+// 		 })();
+//  
+//  console.log("a defined?" + (typeof a != 'undefined'));
+//  console.log("a defined?" + (typeof b != 'undefined'));
+//b=3是全局变量，var a=b是局部变量所以a在外部是访问不到的
+
+//------------------
+
+
+			
+		if(!("a" in window)){
+		            var a = 1;
+		    }
+		    alert(a);
+		
+		console.log("a" in window)
+
+//首先声明a(变量提升)，然后判断a是否在存在，如果不存在就赋值为1，
+//很明显a永远在window里存在，这个赋值语    句永远不会执行，所以结果是undefined。
+    </script>
+</html>
+

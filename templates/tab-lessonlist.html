@@ -1,0 +1,75 @@
+<ion-view view-title="课程列表" hide-nav-bar="true">
+	
+	<style type="text/css">
+		.item{
+			width: 100%;
+		}
+	
+		.col_spe{
+			text-align: center;
+		}
+		.row_spe{
+			border-bottom:1px solid #ccc;
+		}
+		.lessondetail{
+			background:#e8e8e8; padding-bottom:8px;overflow:hidden;
+		}
+		.pricelist{
+			width:100%;background:#e8e8e8;
+		}
+		.pricelist li{line-height:40px;border-bottom:1px solid #ccc;}
+		.pricelist li span{
+			margin-left: 59px;
+		}
+		.lessondetail li{float:left;margin-left:15px;margin-top:5px;width:20%;border:1px solid #ccc;background:#fff;line-height:40px;text-align:center;}
+	</style>   
+	  
+	  <div ng-controller="lessonlistCtrl">
+	  	<div class="bar bar-header item-input-inset">
+	  		<label class="item-input-wrapper">
+	  			<i class="icon ion-ios-search placeholder-icon"></i>
+	  			<input type="search" placeholder="请输入搜索内容" ng-keyup="mykeyup($event)" ng-model="searchTexts"/>
+	  		</label>
+	  	</div>
+	  	<!--!--切换选项-->
+	  	<div class="row row_spe">
+	  		<div class="col col-50 col_spe" style="border-right:1px solid #ccc" ng-click="courselist()" ng-style="lcolor">课程列表<i class="icon ion-chevron-down"></i></div>
+	  		<div class="col col-50 col_spe" ng-click="priece()" ng-style="pcolor">价格<i class="icon ion-chevron-down"></i></div>
+	  	</div>
+	  	
+	  <!--	<切换内容-->
+	  	<ion-content style="margin-top: 2.8rem;">
+	  	 <div class="lessondetail" ng-show="lilist">
+	  	 	  <ul>
+						<li ng-repeat="course in courseList" ng-click="Searching('','{{course.sysId}}','')">{{course.title}}</li>
+						<li ng-click="Searching('','全部','')">全部</li>
+					</ul>
+	  	 </div>
+	  	 
+	  	 <div class="pricelist" ng-show="prlist">
+			  <ul>
+						<li ng-repeat="priceBtn in priceBtns" ng-click="Searching('','','{{priceBtn.id}}')"><span>{{priceBtn.btnName}}</span></li>
+						
+			   </ul>
+		</div>
+		
+		<!--下拉刷新-->
+		<ion-refresher on-refresh="doRefresh()" pulling-text="刷新加载"></ion-refresher>
+		<ul class="list">
+			<li class="item item-thumbnail-left" ng-repeat="lesson in lists" ng-click="tzless_study(lesson.ID)">
+				<img src="{{URLAdmin+lesson.Cpic}}" style="height:auto;"/>
+				<h2>{{lesson.Cname}}</h2>
+			    <p>{{lesson.Cdescribe}}</p>
+			</li>
+		</ul>
+		
+		<ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-show="moredata">
+			
+		</ion-infinite-scroll>
+		</ion-content>
+	  	
+	  </div>
+	
+	   
+ 
+</ion-view>

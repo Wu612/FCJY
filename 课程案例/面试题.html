@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<!--一次性讲清楚这道经典JS面试题（附四种解法，以及全部代码）-->
+	</body>
+	<script type="text/javascript">
+//	点击以下三个li，输出分别是什么？
+var lis=document.getElementsByTagName("li");
+for(var i=0;i<lis.length;i++){
+	lis[i].onclick=function(){
+		console.log("你点击的"+i);
+	}
+}
+
+//var lis = document.getElementsByTagName('li');
+//
+//for (var i = 0; i < lis.length; i++) {
+//  console.log('添加第' + i + '个onclick listener');
+//
+//  lis[i].onclick = function (event) {
+//    console.log(
+//      '只有点击时才进入onclick这个function, 这时i已经变成了' + i);
+//    console.log('你点击了 ' + i);
+//  }
+//
+//  console.log('i这时变成了' + i);
+//}
+//
+//console.log('i在for循环结束后变成了' + i);
+
+//第一种
+//利用 Function.prototype.bind(thisArg, params...) 对每一个 onclick event handler 建立一个其专属的 function，并在建立每个function的时候保存住 i 的值：
+//var lis = document.getElementsByTagName('li');
+//
+//for (var i = 0; i < lis.length; i++) {
+//
+//  lis[i].onclick = function handlerToBind (event){
+//    console.log(
+//      'function handlerToBind(){...}.bind(i) --> ' +
+//      ' 建立了一个新的function，并且在这个函数里面，' +
+//      'this === 运行bind(i)时i的值 === ' + this);
+//      
+//    console.log('你点击了 ' + this);
+//  }.bind(i); 
+//
+//}
+//第二种
+//event.target 拿到实际被点击的 li，然后利用 Array.prototype.indexOf(item) 去查找它的index。
+// var lis = document.getElementsByTagName('li');
+//
+//console.log(
+//  '通过document.getElementsByTagName返回的lis' + 
+//  '并没有返回真正的Array, 只是一个Array-like object. ' + 
+//  '我们需要把它构建成一个真正的Array才能在待会用indexOf方法. ' );
+//  
+//var lisArray = Array.prototype.slice.call(lis);
+//    
+//console.log('现在你可以愉快的使用lisArray.indexOf(item)了');
+//  
+//for (var i = 0; i < lis.length; i++) {
+//
+//  lis[i].onclick = function handlerToBind (event){
+//    
+//    console.log(
+//      'event.target 就是被点击的 DOM Element: ' +
+//      event.target.innerHTML + 
+//      '. 它存在于lis和lisArray中');
+//      
+//    console.log('你点击了 ' + lisArray.indexOf(event.target));
+//  }; 
+//
+//}
+//第三种
+
+// var lis = document.getElementsByTagName('li');
+//
+//for (var i = 0; i < lis.length; i++) {
+//
+//  lis[i].onclick = (function (invokedi) {
+//    console.log('现在建立对于Item' + invokedi + '的event handler');
+//    return function uniqEventHandlerFori(event){
+//      console.log(
+//        'invokedi是在建立event handler时传入的，它的值是' +
+//        invokedi);
+//      console.log('你点击了 ' + invokedi);
+//    }      
+//  }(i))
+//
+//}
+
+
+//第四种
+// var lis = document.getElementsByTagName('li');
+//使用ES6的 let，把 i 限定在block level里面
+//for (let i = 0; i < lis.length; i++) {
+//  lis[i].onclick = function (event) {
+//    console.log('你点击了 ' + i);
+//  }
+//}
+
+
+	</script>
+</html>

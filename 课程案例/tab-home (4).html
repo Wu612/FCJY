@@ -1,0 +1,109 @@
+<ion-view view-title="主页" hide-nav-bar="true" >
+  <ion-content ng-controller="homeCtrl">
+  	<style type="text/css">
+  			.box{
+  				width: 100%;
+  				height: 4.65rem;
+  			}
+  			.box>img{
+  				width: 100%;
+  				height: auto;
+  			}
+  		a{
+        text-decoration: none;
+        color: #666;
+      }
+  			.sy_img{
+  				 width: 100%;
+	        height:2.8rem;
+	        background:#fff;
+	        overflow: hidden;
+  			}
+  		.sy_img img{
+        height:2.8rem;
+      }
+      .more{
+      	float: right;
+      }
+      .titleItm h2{
+      	float: left;
+      }
+  	</style>
+    	<!--搜索栏-->
+    		<div class="item item-input-inset" style="width: 100%;">
+	    			<div ng-click="toggleLeft()" style="width: 1rem;height: 1rem; margin-right: 0.3rem;">
+	    				<img width="100%" height="auto" src="img/person_touxiang.png"/>
+	    			</div>
+	    			<label class="item-input-wrapper">
+	    				<i class="icon ion-search"></i>
+	    				<input type="text" placeholder="Search"  />
+	    			</label>
+	    			<button class="button button-small icon ion-search"></button>    			
+    		</div>
+    	<!--	轮播图部分-->
+    		<ion-slide-box auto-play="true" show-pager="true" delegate-handle="slideimgs">
+    			<ion-slide ng-repeat="bannerPic in bannerData">
+    				<div class="box"><img src="{{URLAdmin+bannerPic.Cpic}}"/></div>
+    			</ion-slide>
+    		</ion-slide-box>
+    		<!--好评榜-->
+    		<div class="list">
+    				<div class="item">
+    						好评榜
+    				</div>
+    				
+    				<div class="item item-body">
+    					<div class="row" ng-repeat="row in homeGoodlistRows">
+		    				<div class="col col-50" ng-repeat="col in row">
+		    						<div class="sy_img">
+		    							<img src="{{URLAdmin+col.Cpic}}"/>
+		    						</div>
+		    						<h2>{{col.Cname}}</h2>
+		    						<p><a>{{col.Cdescribe}}</a></p>
+		    				</div>
+		    			
+	    				</div>
+	    				
+    			</div>
+    			
+    			
+    		</div>
+    <!--		最新课程-->
+    	<div class="list">
+    				<div class="item titleItm">
+    					  <h2>最新课程</h2>
+				        <p class="more">
+				          <a href="#/tab/lessonlist">更多 </a>
+				          <span class="icon ion-chevron-right"></span>
+				        </p>
+    				</div>
+    				
+    				<div class="item item-body">
+    					<div class="row" ng-repeat="row in homeNewLists">
+		    				<div class="col col-50" ng-repeat="col in row">
+		    						<div class="sy_img">
+		    							<img src="{{URLAdmin+col.Cpic}}"/>
+		    						</div>
+		    						<h2>{{col.Cname}}</h2>
+		    						<p><a>{{col.Cdescribe}}</a></p>
+		    				</div>
+		    			
+	    				</div>
+	    				
+    			</div>
+    			
+    			
+    		</div>
+    		<!--猜你喜欢-->
+    		<div class="list">
+    				<div class="item">猜你喜欢</div>
+    			  <a ng-repeat="chooice in homechooseLists" class="item item-thumbnail-left" href="#">
+				      <img src="{{URLAdmin+chooice.Cpic}}">
+				      <h2>{{chooice.Cname}}</h2>
+				      <p>{{chooice.Cdescribe}}</p>
+				    </a>
+    		</div>
+    	
+    	
+  </ion-content>
+</ion-view>

@@ -1,0 +1,127 @@
+<ion-view view-title=”学习页面” hide-tabs="true" hide-nav-bar = "true">
+  <style>
+    .col_spe{text-align:center;width:5.4rem; }
+    .list_mulu{padding-left:1.8rem; overflow-y:scroll;}
+    .circle{padding-left:0.6rem;border-left:1px dashed #ccc;position:relative;line-height:1.5rem;height:1.5rem;}
+    .span_01{width:4.6rem;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+    .span_02{width:3rem;float:right;}
+    .span_cir{width:0.3rem;height:0.3rem;background:url(img/study_circle.png) no-repeat;position:absolute;top:0.6rem;left:-0.17rem;background-size:100% 100%;}
+
+    .viewed{color:#0c60ee;}
+    .isViewing{color:#4cd964;}
+
+    .video .video_login{position:absolute; top:0;  left:0; width:100%; height:5.96rem; background:#000;color:#fff; opacity:0.6; z-index:999; text-align: center; line-height: 5.96rem;}
+    .video .video_buy{position:absolute; top:0;  left:0; width:100%;  height:5.96rem; background:#000; opacity:0.6; color:#fff;text-align:center; line-height: 5.96rem; }
+
+  </style>
+  <div class="study_top" style="position:fixed; top:0; left:0; width:100%; z-index: 99999">
+    <div class="video">
+
+      <div style="width:100%; height:5.96rem; background:#fFF">
+
+        <!--普通网页调试使用下面这个video标签-->
+        <!--<video  controls loop src="{{Vurl}}" width="100%" height="auto"></video>-->
+
+        <!--封装成app使用下面这个video标签-->
+        <!--<video id="video1" controls style="width: 100%;height:5.96rem"></video>-->
+
+        <!--视频播放兼容写法-->
+        <video ng-show="pcTrue"  controls loop src="{{Vurl}}" width="100%" height="auto"></video>
+        <video ng-show="!pcTrue" id="video1" controls style="width: 100%;height:5.96rem"></video>
+
+
+      </div>
+
+      <div class="video_buy" ng-show="shadow.video_buy">请在下方购买</div>
+      <div class="video_login" ng-show="video_login">请<a href="#/tab/personal">登录</a></div>
+
+    </div>
+
+
+    <!--目录和详情的切换按钮-->
+    <div class="row nav" style="background:#ccc">
+      <div class="col col-50 col_spe"  id="mulu" ng-click="ml_left()" ng-style="color" style="border-right:2px solid #fff">目录<i class="icon ion-chevron-down" ></i></div>
+      <div class="col col-50 col_spe " id="xiangqing" ng-click="xq_right()" ng-style="colorc">详情<i class="icon ion-chevron-down"></i></div>
+    </div>
+
+
+  </div>
+
+  <ion-content class="study_mlxq" style="padding-top:7.2rem; padding-bottom:1.4rem; height:100%" >
+    <!--目录列表-->
+    <div class="content  ionic-pseudo" ng-show="mymulu">
+      <div  ng-repeat="CDlist in CDlists">
+        <div class="list" style="margin-bottom:0;"><a class="item">{{CDlist.CDname}}</a></div>
+        <div class="list_mulu">
+          <div class="circle" ng-repeat="Vlist in CDlist.Vlist" ng-class='{viewed: Vlist.isViewed,isViewing: Vlist.isViewing}'>
+            <span class="span_02">{{Vlist.Vtime }}分钟</span>
+            <div class="span_01" ng-click="broadcast(Vlist.Vurl, Vlist.ID)">{{Vlist.Vname}}</div>
+            <span class="span_cir"></span>
+          </div>
+        </div>
+      </div>
+      <div style="height:1.3rem;"></div>
+    </div>
+
+
+    <!--详情列表-->
+    <div class="content  ionic-pseudo" ng-show="myxiangqing">
+      <div class="item"style="color:#0a9ec7;">{{Cname}}评价</div>
+      <div class="list_xiangqing">
+        <div class="list">
+          <div class="item item-avatar" ng-repeat="assess in evaluates">
+            <img src="img/study_tx.jpg">
+            <span style="text-align:left;">{{assess.ID}}</span>
+            <span style="float:right; ">{{assess.createAt}}</span>
+            <p style="white-space:normal;">{{assess.evaluate}}</p>
+          </div>
+        </div>
+      </div>
+      <div style="height:1.3rem;"></div>
+    </div>
+
+
+  </ion-content>
+
+  <!--底部导航-->
+  <div class="tabs tabs-icon-top"  ng-controller="studyFooterCtrl">
+    <a class="tab-item" ng-click="footerPingjia || modal.show()">
+      <i class="icon ion-edit"></i>
+      评价
+    </a>
+    <a class="tab-item" ng-class="{true: 'active', false: 'inactive'}[isActive]" ng-click="scGo()" >
+      <i class="icon ion-ios-star-outline"></i>
+      {{shouchangYN}}
+    </a>
+    <a class="tab-item {{test}}" ng-click="payGo()">
+      <i class="icon ion-ios-download-outline"></i>
+      {{goumaiYN}}
+    </a>
+  </div>
+
+  <!--评价弹窗的html模板-->
+  <script id="templates/modal.html" type="text/ng-template">
+    <div id="task-view" class="modal slide-in-up" ng-controller="TaskCtrl">
+      <header class="bar-positive bar bar-header">
+        <h1 class="title">写评论</h1>
+        <button class="button button-clear button-primary" ng-click="close()">关闭</button>
+      </header>
+      <div class="padding has-header" style="width:92%; height: 6rem; overflow: hidden; border:1px solid #ccc; margin:18% 4% 5%;">
+        <textarea  placeholder="吐槽、表扬、鼓励……想说啥就说啥！" rows="11" cols="50" maxlength="300" ng-model = "textareaValue"></textarea>
+      </div>
+      <p style="text-align:right; margin-right: 20px; color:#ccc">300</p>
+      <div class="row">
+        <div class="col col-33"></div>
+        <div class="col col-33">
+          <button class="button button-block button-positive" ng-click="createContact()" style="margin:0 auto;">提交</button>
+        </div>
+        <div class="col col-33"></div>
+      </div>
+    </div>
+
+  </script>
+</ion-view>
+
+
+
+

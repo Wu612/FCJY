@@ -1,0 +1,70 @@
+<ion-view view-title="" hide-nav-bar="true">
+  <style>
+    .col_spe{text-align:center;}
+    .row_spe{border-bottom:1px solid #ccc;}
+    li{list-style-type: none}
+    .content li img{float:left;width:35%;}
+    .content li article{float: left;width:50%;margin-left:20px;}
+  </style>
+
+  <ion-content>
+    <div class="bar bar-header">
+      <h1 class="title">我的课程</h1>
+      <button class="button" ng-click="data.showDelete = !data.showDelete;">编辑</button>
+    </div>
+
+    <!--设置间距-->
+    <div style="height:44px"></div>
+
+    <!--切换按钮-->
+    <div class="row nav row_spe">
+      <div class="col col-50 col_spe"  id="lesson" ng-click="mylesson()" ng-style="color" style="border-right:1px solid #ccc">
+        我的课程<i class="icon ion-chevron-down" style="margin-left:10px;"></i>
+      </div>
+      <div class="col col-50 col_spe" id="price" ng-click="course()" ng-style="colorc">
+        收藏课程<i class="icon ion-chevron-down" style="margin-left:10px;"></i>
+      </div>
+    </div>
+
+    <!--登录提示-->
+    <div class="dl" ng-show="dl_tf" style="text-align:center; line-height: 10rem;">请<a href="#/tab/personal">登录</a></div>
+
+    <!--我的课程-->
+    <div class="content ionic-pseudo"  ng-show="mycou">
+      <ion-list  show-delete="data.showDelete" >
+        <ion-item ng-repeat="item in itemFir"  ng-click="tz_study(item.ID)">
+          <li>
+            <img src="{{URLAdmin + item.Cpic}}">
+            <article>
+              <h2>{{item.Cname}}</h2>
+              <p><span>{{item.Cnumber}}</span>
+                <span>{{item.Cdescribe}}</span>
+              </p>
+            </article>
+          </li>
+          <ion-option-button class="button-calm" ng-click="doShare(item.ID)">分享</ion-option-button>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!--收藏课程-->
+    <div class="content ionic-pseudo" ng-show="mycol">
+      <ion-list  show-delete="data.showDelete">
+        <ion-item ng-repeat="item in itemSec"   ng-click="tz_study(item.ID)">
+          <li>
+            <img src="{{URLAdmin + item.Cpic}}">
+            <article>
+              <h2>{{item.Cname}}</h2>
+              <p><span>{{item.Cnumber}}</span>
+                <span>{{item.Cdescribe}}</span>
+              </p>
+            </article>
+          </li>
+          <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)"></ion-delete-button>
+          <ion-option-button class="button-calm" ng-click="doShare(item.ID)">分享</ion-option-button>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </ion-content>
+</ion-view>
